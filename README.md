@@ -2,6 +2,10 @@
 
 This is a simple project to learn VueJS.
 
+##Demo site
+
+[Go to live](https://competent-haibt-abd417.netlify.com/)
+
 ## Build Setup
 
 ``` bash
