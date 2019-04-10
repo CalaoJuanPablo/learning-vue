@@ -5,18 +5,21 @@
     h3 Top LastFM artists by country.
     select(v-model="selectedCountry")
       option(v-for="country in countries" :value="country.value") {{ country.name }}
-    ul
+    spinner(v-show="loading")
+    ul(v-show="!loading")
       artists(:artists="artists")    
 </template>
 
 <script>
 import Artists from './components/Artists.vue';
+import Spinner from './components/Spinner.vue';
 import getArtists from './api';
 
 export default {
   name: 'app',
   components: {
     Artists,
+    Spinner,
   },
   data () {
     return {
@@ -26,7 +29,8 @@ export default {
         {name: 'Colombia', value: 'colombia'},
         {name: 'España', value: 'spain'}
       ],
-      selectedCountry: 'colombia'
+      selectedCountry: 'colombia',
+      loading: true
     }
   },
   mounted: function() {
@@ -35,10 +39,12 @@ export default {
   methods: {
     refreshArtist(country) {
       const self = this;
+      this.loading = true;
       getArtists(country)
         .then(function(artists) {
           self.artists = artists;
         })
+        .then(function(){ self.loading = false })
     }
   },
   watch: {
