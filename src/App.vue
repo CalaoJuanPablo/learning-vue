@@ -1,7 +1,9 @@
 <template lang="pug">
   #app
-    img(src='./assets/logo.png')
+    img(src="./assets/logo.png")
     h1 PlatziMusic
+    select(v-model="selectedCountry")
+      option(v-for="country in countries" :value="country.value") {{ country.name }}
     ul
       artists(:artists="artists")    
 </template>
@@ -17,17 +19,31 @@ export default {
   },
   data () {
     return {
-      artists: []
+      artists: [],
+      countries: [
+        {name: 'Argentina', value: 'argentina'},
+        {name: 'Colombia', value: 'colombia'},
+        {name: 'España', value: 'spain'}
+      ],
+      selectedCountry: 'colombia'
     }
   },
   mounted: function() {
-    const self = this;
-    getArtists()
-      .then(
-        function(artists) {
+    this.refreshArtist(this.selectedCountry)
+  },
+  methods: {
+    refreshArtist(country) {
+      const self = this;
+      getArtists(country)
+        .then(function(artists) {
           self.artists = artists;
-        }
-      )
+        })
+    }
+  },
+  watch: {
+    selectedCountry: function() {
+      this.refreshArtist(this.selectedCountry)
+    }
   }
 }
 </script>
