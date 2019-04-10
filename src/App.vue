@@ -3,15 +3,18 @@
     img(src='./assets/logo.png')
     h1 PlatziMusic
     ul
-      li(v-for="artist in artists") {{ artist.name }}
-    
+      artists(:artists="artists")    
 </template>
 
 <script>
+import Artists from './components/Artists.vue';
 import getArtists from './api';
 
 export default {
   name: 'app',
+  components: {
+    Artists,
+  },
   data () {
     return {
       artists: []
@@ -40,15 +43,4 @@ export default {
     
   h1, h2 
     font-weight normal
-
-  ul 
-    list-style-type none
-    padding 0
-
-  li 
-    display inline-block
-    margin 0 10px
-
-  a 
-    color #42b983
 </style>
