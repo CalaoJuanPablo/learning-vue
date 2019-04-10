@@ -2,6 +2,7 @@
   #app
     img(src="./assets/logo.png")
     h1 PlatziMusic
+    h3 Top LastFM artists by country.
     select(v-model="selectedCountry")
       option(v-for="country in countries" :value="country.value") {{ country.name }}
     ul
