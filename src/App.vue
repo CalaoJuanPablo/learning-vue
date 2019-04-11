@@ -6,8 +6,7 @@
     select(v-model="selectedCountry")
       option(v-for="country in countries" :value="country.value") {{ country.name }}
     spinner(v-show="loading")
-    ul(v-show="!loading")
-      artists(:artists="artists")    
+    artists(v-show="!loading" :artists="artists")    
 </template>
 
 <script>
